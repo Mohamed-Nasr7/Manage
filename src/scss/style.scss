@@ -1,0 +1,777 @@
+@import "mixins";
+@import "variables";
+@import "components";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Be Vietnam", sans-serif;
+  overflow-x: hidden;
+  &.hide-overflow {
+    overflow-y: hidden;
+  }
+  ul {
+    list-style: none;
+  }
+}
+.container {
+  padding: 0 12%;
+  @include mediaMax($lg) {
+    padding: 0 7%;
+  }
+  @include mediaMax($sm) {
+    padding: 0 5%;
+  }
+}
+
+///////////////////////////////////////
+
+.svg-orange-bg {
+  position: absolute;
+  top: -240px;
+  right: -70px;
+  background: url(../../imgs/bg-tablet-pattern.svg) no-repeat;
+  height: 900px;
+  width: 677px;
+  z-index: -1;
+  @include mediaMax($lg) {
+    right: -225px;
+    top: -260px;
+    background-size: contain;
+  }
+  @include mediaMax($md) {
+    top: -217px;
+  }
+  @include mediaMax($xs) {
+    top: -163px;
+    right: -384px;
+    height: 572px;
+  }
+}
+
+// Nav
+.nav {
+  @extend .container;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0 70px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width: 157px;
+    background: url(../../imgs/logo.svg) no-repeat;
+    background-size: contain;
+    margin-top: 13px;
+    @include mediaMax($sm) {
+      width: 125px;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      margin-left: 33px;
+      display: flex;
+      align-items: center;
+      a {
+        text-decoration: none;
+        font-weight: 500;
+        color: $dark_blue;
+        font-size: 14px;
+        &:hover {
+          color: $grayish_blue;
+        }
+        @include mediaMax($lg) {
+          font-size: 12px;
+        }
+      }
+    }
+    li:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__button {
+    @extend .button;
+  }
+
+  &__menu,
+  &__button {
+    @include mediaMax($md) {
+      display: none;
+    }
+  }
+
+  &__burger-menu {
+    display: none;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    cursor: pointer;
+    background: url(../../imgs/icon-hamburger.svg) no-repeat center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    @include mediaMax($md) {
+      display: block;
+    }
+  }
+  &__burger-closed {
+    background: url(../../imgs/icon-close.svg) no-repeat center;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  margin: 0 auto;
+  height: 250px;
+  width: 300px;
+  opacity: 0;
+  visibility: hidden;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  transition: all 0.4s ease-in-out;
+  background-color: #fff;
+  @include flex(space-evenly, center);
+  flex-direction: column;
+  padding: 20px 0;
+
+  &.show {
+    opacity: 1;
+    top: 120px;
+    visibility: visible;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: $dark_blue;
+    font-size: 14px;
+    &:hover {
+      color: $grayish_blue;
+    }
+  }
+
+  @include mediaMax($xs) {
+    width: 70%;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.507),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+
+  &.gradient {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.507),
+      rgba(255, 255, 255, 0)
+    );
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.4s ease-in-out;
+  }
+}
+
+//////////////////////////////////////
+
+//Header
+.header {
+  @extend .container;
+  @include grid(1fr 1.5fr, 20px);
+  grid-auto-rows: 500px;
+
+  @include mediaMax($lg) {
+    @include grid(1fr 1fr, 20px);
+  }
+  @include mediaMax($md) {
+    @include grid(1fr, 0);
+    grid-auto-rows: 400px;
+  }
+
+  &__left {
+    align-self: center;
+    @include mediaMax($md) {
+      order: 2;
+      justify-self: center;
+      align-self: start;
+      text-align: center;
+      max-width: 566px;
+    }
+    @include mediaMax(380px) {
+      position: relative;
+      top: -50px;
+    }
+
+    h1 {
+      font-size: 50px;
+      color: $dark_blue;
+      line-height: 1.2em;
+      margin-bottom: 35px;
+      max-width: 497px;
+      @include mediaMax($lg) {
+        font-size: 44px;
+        max-width: initial;
+      }
+      @include mediaMax($sm) {
+        font-size: 35px;
+      }
+    }
+    p {
+      @extend .paragraph;
+      margin-bottom: 35px;
+      max-width: 350px;
+      @include mediaMax($md) {
+        order: 2;
+        justify-self: center;
+        text-align: center;
+        max-width: initial;
+      }
+    }
+    button {
+      @extend .button;
+    }
+  }
+
+  &__right {
+    background: url(../../imgs/illustration-intro.svg) no-repeat;
+    background-size: cover;
+    width: 535px;
+    justify-self: end;
+    @include mediaMax($lg) {
+      width: 439px;
+      height: 411px;
+      align-self: center;
+    }
+    @include mediaMax($md) {
+      order: 1;
+      justify-self: center;
+      width: 455px;
+      background-size: contain;
+    }
+
+    @include mediaMax($sm) {
+      width: 90%;
+    }
+    @include mediaMax($xs) {
+      width: 109%;
+      height: 410px;
+    }
+  }
+}
+
+////////////////////////////////////////
+
+// About
+.about {
+  @extend .container;
+  @include grid;
+  margin: 150px 0 80px;
+  @include mediaMax($md) {
+    @include grid(1fr, 40px);
+    margin-top: 0;
+  }
+
+  &__left {
+    position: relative;
+    @include mediaMax($md) {
+      text-align: center;
+    }
+  }
+
+  &__title {
+    font-size: 34px;
+    line-height: 40px;
+    margin-bottom: 30px;
+    color: $dark_blue;
+    @include mediaMax($sm) {
+      font-size: 30px;
+    }
+  }
+
+  &__paragraph {
+    @extend .paragraph;
+  }
+
+  &__list {
+    margin-bottom: 40px;
+  }
+  &__number {
+    min-width: 63px;
+    width: 63px;
+    height: 100%;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 500;
+    background-color: $bright_red;
+    margin-right: 23px;
+    @include mediaMax($md) {
+      width: 60px;
+      height: 100%;
+      font-size: 13px;
+      box-shadow: -12px 0px 0 2px #fff;
+    }
+  }
+
+  &__paper {
+    display: flex;
+    @include mediaMax($md) {
+      background-color: #fff0ec;
+      width: 106%;
+      height: 37px;
+    }
+  }
+
+  &__list-title {
+    @include flex(start, center);
+    font-size: 1em;
+    color: $dark_blue;
+    @include mediaMax($sm) {
+      font-size: 14px;
+      line-height: 1em;
+    }
+  }
+
+  &__list-details {
+    @extend .paragraph;
+    padding-top: 15px;
+    margin-left: 86px;
+    line-height: 1.9em;
+    @include mediaMax($md) {
+      margin-left: 0;
+    }
+  }
+}
+
+.svg-orange-bg2 {
+  position: absolute;
+  top: 250px;
+  left: -650px;
+  background: url(../../imgs/bg-tablet-pattern.svg) no-repeat;
+  height: 816px;
+  width: 1000px;
+  pointer-events: none;
+  z-index: -1;
+  @include mediaMax($md) {
+    top: -408px;
+    left: 60%;
+    height: 437px;
+    width: 461px;
+    background-size: contain;
+  }
+  @include mediaMax($sm) {
+    top: -430px;
+    left: 60%;
+    height: 437px;
+    width: 396px;
+    background-size: contain;
+  }
+}
+
+//////////////////////////////////
+
+//Testimonials
+
+.testimonials {
+  text-align: center;
+
+  &__title {
+    font-size: 34px;
+    line-height: 40px;
+    margin-bottom: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: $dark_blue;
+    @include mediaMax($sm) {
+      font-size: 30px;
+    }
+  }
+
+  &__wrapper {
+    @include flex;
+    overflow: auto;
+    height: 280px;
+    margin-bottom: 50px;
+    position: relative;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    cursor: -moz-grab;
+    cursor: grab;
+    @include mediaMax($sm) {
+      height: 230px;
+      margin-bottom: 30px;
+    }
+  }
+  &__wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__wrapper:active {
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  &__item {
+    @include flex(space-evenly, center);
+    flex-direction: column;
+    min-width: 450px;
+    height: 220px;
+    padding: 0 50px;
+    margin-top: 40px;
+    background-color: $vary_light_gray;
+    pointer-events: none;
+    @include mediaMax($sm) {
+      min-width: 433px;
+      height: 190px;
+    }
+  }
+  &__item:not(:first-child) {
+    margin-left: 30px;
+  }
+
+  &__img {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    top: 8px;
+    z-index: 500px;
+    &.img-1 {
+      background: url(../../imgs/avatar-anisha.png) no-repeat;
+      background-size: contain;
+    }
+    &.img-2 {
+      background: url(../../imgs/avatar-ali.png) no-repeat;
+      background-size: contain;
+    }
+    &.img-3 {
+      background: url(../../imgs/avatar-richard.png) no-repeat;
+      background-size: contain;
+    }
+    &.img-4 {
+      background: url(../../imgs/avatar-shanai.png) no-repeat;
+      background-size: contain;
+    }
+
+    @include mediaMax($sm) {
+      height: 54px;
+      width: 54px;
+    }
+  }
+
+  &__name {
+    color: $dark_blue;
+    margin-top: 35px;
+    @include mediaMax($sm) {
+      font-size: 0.95em;
+    }
+  }
+
+  &__body {
+    @extend .paragraph;
+  }
+
+  &__slider {
+    display: none;
+    width: 100px;
+    height: 30px;
+    margin: 0 auto 40px;
+    @include mediaMax($sm) {
+      display: block;
+    }
+
+    .slide-btn {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1.5px solid $bright_red;
+      cursor: pointer;
+      &:not(:first-child) {
+        margin-left: 8px;
+      }
+
+      &.active {
+        background-color: $bright_red;
+      }
+    }
+  }
+
+  &__button {
+    @extend .button;
+  }
+}
+
+//////////////////////////////////
+
+//Simplify
+.simplify {
+  @extend .container;
+  @include flex(space-between, center);
+  margin-top: 120px;
+  height: 230px;
+  background-color: $bright_red;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  @include mediaMax($md) {
+    height: 340px;
+    flex-direction: column;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background: url(../../imgs/bg-simplify-section-desktop.svg) no-repeat;
+    top: -131px;
+    left: 15%;
+    height: 373px;
+    width: 1500px;
+
+    @include mediaMax($md) {
+      top: -20px;
+      left: -290px;
+    }
+    @include mediaMax($xs) {
+      left: -348px;
+    }
+  }
+
+  &__title {
+    font-size: 34px;
+    width: 420px;
+    z-index: 5;
+    @include mediaMax($md) {
+      width: initial;
+      text-align: center;
+    }
+    @include mediaMax($sm) {
+      font-size: 30px;
+    }
+  }
+
+  &__button {
+    @extend .button;
+    background-color: #fff;
+    color: $bright_red;
+    z-index: 5;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+//////////////////////////////////
+// Footer
+
+.footer {
+  @include grid(1fr 1fr 1fr 1fr, 0);
+  @extend .container;
+  grid-column-gap: 20px;
+  justify-items: center;
+  align-items: center;
+  background-color: $very_dark_blue;
+  color: #fff;
+  min-height: 230px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  @include mediaMax($md) {
+    @include grid(200px);
+    grid-row-gap: 35px;
+    grid-column-gap: 0;
+  }
+  @include mediaMax($xs) {
+    grid-template-columns: 94px;
+  }
+
+  &__logo,
+  &__list1,
+  &__list2,
+  &__form,
+  &__icons,
+  &__copyright {
+    @include flex(space-between);
+  }
+
+  &__logo,
+  &__list1,
+  &__list2,
+  &__form {
+    height: 100%;
+    flex-direction: column;
+    li {
+      font-size: 14px;
+      @include mediaMax($xs) {
+        font-size: 12px;
+      }
+    }
+    li a {
+      text-decoration: none;
+      color: #fff;
+    }
+    li:hover a {
+      color: $bright_red;
+      cursor: pointer;
+    }
+  }
+
+  &__logo {
+    justify-self: start;
+    align-self: start;
+    background: url(../../imgs/) no-repeat;
+    background-size: contain;
+    height: 30px;
+    width: 90px;
+    @include mediaMax($md) {
+      grid-column-start: span 4;
+      justify-self: center;
+      order: 5;
+      width: initial;
+    }
+  }
+
+  &__list2 {
+    justify-content: flex-start;
+    li {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__icons {
+    width: 100%;
+    @include flex();
+    & li:not(:first-child) {
+      margin-left: 10px;
+    }
+    @include mediaMax($md) {
+      width: 200px;
+      justify-content: space-between;
+      order: 4;
+    }
+  }
+
+  .fb-svg,
+  .youtube-svg,
+  .twitter-svg,
+  .pinterest-svg,
+  .instagram-svg {
+    cursor: pointer;
+  }
+
+  .fb-svg:hover .fb-icon,
+  .youtube-svg:hover .youtube-icon,
+  .twitter-svg:hover .twitter-icon,
+  .pinterest-svg:hover .pinterest-icon,
+  .instagram-svg:hover .instagram-icon {
+    fill: $bright_red;
+  }
+
+  &__form {
+    justify-self: end;
+    @include mediaMax($md) {
+      order: 1;
+    }
+  }
+
+  &__form form {
+    @include flex(flex-end);
+    width: 100%;
+  }
+
+  &__input {
+    padding: 12px;
+    width: 170px;
+    height: 35px;
+    font-size: 10px;
+    font-family: "Be Vietnam", sans-serif;
+    border-radius: 29px;
+    outline: none;
+    border: none;
+  }
+  &__validation-text {
+    display: none;
+    color: rgb(172, 1, 1);
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  &__button {
+    @extend .button;
+    width: 55px;
+    height: 35px;
+    box-shadow: none;
+    margin-left: 10px;
+  }
+
+  &__copyright {
+    font-size: 12px;
+    color: $grayish_blue;
+    grid-column-start: span 3;
+    justify-self: end;
+    @include mediaMax($md) {
+      order: 6;
+    }
+  }
+
+  &__icons,
+  &__copyright {
+    height: 0;
+    position: relative;
+    top: -24px;
+    @include mediaMax($md) {
+      height: initial;
+      position: initial;
+    }
+  }
+
+  &__logo,
+  &__form,
+  &__icons,
+  &__copyright {
+    @include mediaMax($md) {
+      grid-column-start: span 4;
+      justify-self: center;
+    }
+  }
+
+  &__list1 {
+    @include mediaMax($md) {
+      grid-column-start: span 2;
+      justify-self: center;
+      order: 2;
+    }
+  }
+  &__list2 {
+    @include mediaMax($md) {
+      grid-column-start: span 2;
+      justify-self: center;
+      order: 3;
+    }
+  }
+}

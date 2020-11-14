@@ -1,0 +1,22 @@
+@mixin mediaMax($width) {
+  @media screen and (max-width: $width) {
+    @content;
+  }
+}
+@mixin mediaMin($width) {
+  @media screen and (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin flex($v: flex-start, $v2: flex-start) {
+  display: flex;
+  justify-content: $v;
+  align-items: $v2;
+}
+
+@mixin grid($v: 1fr 1fr, $v2: 90px) {
+  display: grid;
+  grid-template-columns: $v;
+  grid-gap: $v2;
+}
